@@ -1,0 +1,95 @@
+<?php
+
+
+$dbhost = 'localhost';
+         $dbuser = 'root';
+         $dbpass = '';
+         $dbname = 'arduino-site-users';
+         $conn = mysqli_connect($dbhost, $dbuser, $dbpass,$dbname);
+   
+         if(! $conn ) {
+            die('Could not connect: ' . mysqli_error());
+         }
+         echo 'Connected successfully<br>';
+         
+$query = "select * from arduino-site-users;";
+            if ($result = mysqli_query($db_link, $query)){
+
+                echo "<table>";
+                //header
+                echo "<tr><td>Date Added</td>";
+                        echo "<td>Name</td>";
+                        echo "<td>Email</td>";
+                echo "<td>Gender</td>";
+                            echo "<td>Country</td>";
+                echo "<td>Subject</td>";
+                        echo "<td>Comment</td>";
+                echo "<td>Subscription</td></tr>";
+                    //data  
+                     while ($row = mysqli_fetch_array($result))  {
+                      echo "<tr><td>{$row[0]}</td>";
+                      echo "<td>{$row[1]}</td>";
+                      echo "<td>{$row[2]}</td>";
+                      echo "<td>{$row[3]}</td>";
+                      echo "<td>{$row[4]}</td>";
+                      echo "<td>{$row[5]}</td>";
+                      echo "<td>{$row[6]}</td>";
+                      echo "<td>{$row[7]}</td></tr>";
+                    } 
+
+                    echo "</table>";
+            }
+
+            mysqli_free_result($result);
+            mysqli_close($db_link);
+
+?>
+
+    <!DOCTYPE html>
+    <html>
+    <title>
+
+        <head> Fetch Data from Database </head>
+    </title>
+
+    <body>
+
+
+        <table align="center" border="1px" style="width:600px; line-height:40px;">
+            <tr>
+                <th colspan="4"> <h2>System Users</h2>
+                </tr>
+            <t>
+                <th> User ID </th>
+                <th> Username </th>
+                <th> Password </th>
+                <th> Role Code </th>
+            </t>
+            
+            <?php
+            while($rows=mysqli_fetch_assoc($result))
+            {
+                ?>
+            
+            <tr>
+                <td><?php echo $rows['u_userid']; ?></td>
+                <td><?php echo $rows['u_username']; ?></td>
+                <td><?php echo $rows['u_password']; ?></td>
+                <td><?php echo $rows['u_rolecode']; ?></td>
+            </tr>
+            <?php
+            }
+            ?>
+            
+            
+            
+            
+            
+            
+        </table>
+
+
+
+    </body>
+
+    </html>

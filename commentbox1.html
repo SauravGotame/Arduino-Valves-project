@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+<div class="warning" id="no_go"></div>
+<div class="commentbox-app">
+  <div class="container">
+    <h1 class="heading">commentbox</h1>
+    <div class="clearfix">
+      <form id="comment-form">
+        <input type="text" id="comment-input" class="comment-input" placeholder="Thoughts">
+        <input type="submit" value="Post" class="comment-btn">
+      </form>
+    </div>
+    
+    <ul id="comment-stream" class="comment-stream">
+<!-- dummy data:       <li>Hey! <span class="comment-remove">&times;</span></li>
+      <li>Just a thought <span href="" class="comment-remove">&times;</span></li> -->
+    </ul>
+    <button class="remove-all-btn" id="remove-all" type="button">Remove all</button>
+  </div>
+</div>
+<?php
+$servername = "localhost";
+$username = "username";
+$password = "password";
+$dbname = "myDBPDO";
+
+try {
+    $conn = new PDO("mysql:host=$localhost;dbname=$dbname", $username, $password);
+    // set the PDO error mode to exception
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $sql = "INSERT INTO location (NAME, VALVE_ID, LOC_ZONE)
+    VALUES ('Tipton', '171', 'Zone_F')";
+    // use exec() because no results are returned
+    $conn->exec($sql);
+    echo "New record created successfully";
+    }
+catch(PDOException $e)
+    {
+    echo $sql . "<br>" . $e->getMessage();
+    }
+
+$conn = null;
+?>
+</html>

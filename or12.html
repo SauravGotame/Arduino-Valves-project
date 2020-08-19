@@ -1,0 +1,38 @@
+<html> 
+<body> 
+<?php 
+function select_data($conn) {
+
+$sql="SELECT * FROM Emp ORDER BY ename";
+$stmt=oci_parse($conn, $sql); 
+oci_execute($stmt); 
+print "<h2>".$sql."</h2>"; 
+print "<pre>"; 
+while ( oci_fetch($stmt) ) 
+{
+
+print "\n"; $ncols=oci_num_fields($stmt);
+for ( $i=1; $i <=$ncols; $i++ ) 
+{
+
+$column_name=oci_field_name($stmt,$i); 
+$column_value=oci_result($stmt,$i); 
+print "<b>" . $column_name . "</b>: " . $column_value . "\n"; 
+}
+
+print "\n";
+}
+oci_free_statement($stmt); 
+print "</pre>";
+
+} # select_data function
+
+echo ("<h2>Accessing Oracle via PHP</h2>" ); 
+$db="ora12c"; 
+$connect = oci_connect("OPS$1608275","P36273",$db) ; 
+select_data($connect); 
+oci_close($connect); 
+?>
+
+</body> 
+</html>
